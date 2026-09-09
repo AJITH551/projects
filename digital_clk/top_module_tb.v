@@ -1,12 +1,10 @@
 module dig_clk_tb;
 reg clk;
 reg rst;
-wire [6:0] seg1;
-wire [6:0] seg2;
-wire [6:0] seg3;
-wire [6:0] seg4;
+wire [6:0]seg;
+wire [3:0]an;
 
-top_module uut(.clk(clk),.rst(rst),.seg1(seg1),.seg2(seg2),.seg3(seg3),.seg4(seg4));
+top_module uut(.clk(clk),.rst(rst),.seg(seg),.an(an));
 
 always #10 clk=~clk;
 
@@ -20,7 +18,9 @@ rst=0;
 $finish;
 end
 initial begin
-$monitor("time=%0t rst=%b min=%d sec=%d display=%0d%0d:%0d%0d",$time,rst,uut.u2.min,uut.u2.sec,uut.u3.min_tens,uut.u3.min_ones,uut.u3.sec_tens,uut.u3.sec_ones);
+$monitor("time=%0t rst=%b min=%0d sec=%0d ",$time,rst,uut.u2.min,uut.u2.sec);
+$dumpfile("digital_clk.vcd");
+$dumpvars;
 end
 
 endmodule
